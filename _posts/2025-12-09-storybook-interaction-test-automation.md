@@ -13,7 +13,9 @@ tags:
   - React
   - Frontend
   - Test Automation
-image: /assets/img/posts/2025-12-09/storybook-interaction-test-automation_9.webp
+image:
+  path: /assets/img/posts/2025-12-09/storybook-interaction-test-automation_9.webp
+  show: false
 last_modified_at: 2025-12-09
 howto:
   name: "Storybook 인터랙션 테스트를 함수형으로 설계하는 방법"

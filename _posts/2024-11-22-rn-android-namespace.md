@@ -10,7 +10,9 @@ tags:
   - Android
   - Namespace
   - Automation
-image: /assets/img/posts/2024-11-22/rn-android-namespace.webp
+image:
+  path: /assets/img/posts/2024-11-22/rn-android-namespace.webp
+  show: false
 last_modified_at: 2024-11-22
 howto:
   name: "React Native Android namespace 자동 추가 방법"

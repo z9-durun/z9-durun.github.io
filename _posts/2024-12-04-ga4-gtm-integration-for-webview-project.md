@@ -13,7 +13,9 @@ tags:
   - React
   - TypeScript
   - WebView
-image: /assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_1.webp
+image:
+  path: /assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_1.webp
+  show: false
 last_modified_at: 2024-12-04
 howto:
   name: "웹뷰 프로젝트에 GA4와 GTM 적용하는 방법"

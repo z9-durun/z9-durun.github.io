@@ -14,7 +14,9 @@ tags:
   - Gradle
   - Mobile Development
   - Technical Issue
-image: /assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_2.webp
+image:
+  path: /assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_2.webp
+  show: false
 last_modified_at: 2024-12-05
 faq:
   - question: "Channel Talk v0.9.0 업데이트 후 Android 빌드가 실패하는 이유는?"

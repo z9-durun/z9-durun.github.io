@@ -14,7 +14,9 @@ tags:
   - DevOps
   - Git Commands
   - Technical Guide
-image: /assets/img/posts/2024-12-05/2024-12-05-git-repository-migration-with-history.webp
+image:
+  path: /assets/img/posts/2024-12-05/2024-12-05-git-repository-migration-with-history.webp
+  show: false
 last_modified_at: 2024-12-05
 howto:
   name: "Git 레포지토리 커밋 히스토리 유지하면서 이전하는 방법"
