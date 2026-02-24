@@ -10,6 +10,18 @@ tags:
   - Android
   - Namespace
   - Automation
+image: /assets/img/posts/2024-11-22/rn-android-namespace.webp
+last_modified_at: 2024-11-22
+howto:
+  name: "React Native Android namespace 자동 추가 방법"
+  time: "PT20M"
+  steps:
+    - name: "package.json에 postinstall 스크립트 추가"
+      text: "npm install 실행 시 자동으로 namespace를 추가하도록 postinstall 훅을 설정합니다."
+    - name: "gradle.properties에 namespace 정보 추가"
+      text: "각 라이브러리의 namespace를 android/gradle.properties에 정의합니다."
+    - name: "namespace 자동 추가 스크립트 작성"
+      text: "scripts/add-namespaces.ts 파일을 작성하여 node_modules 내 build.gradle에 namespace를 자동 추가합니다."
 ---
 
 

@@ -13,6 +13,20 @@ tags:
   - React
   - Frontend
   - Test Automation
+image: /assets/img/posts/2025-12-09/storybook-interaction-test-automation_9.webp
+last_modified_at: 2025-12-09
+howto:
+  name: "Storybook 인터랙션 테스트를 함수형으로 설계하는 방법"
+  time: "PT45M"
+  steps:
+    - name: "TestFlow 러너 만들기"
+      text: "테스트 컨텍스트를 관리하고 스텝을 순차 실행하는 createTestFlow 함수를 작성합니다."
+    - name: "공통 인터랙션 함수 추출"
+      text: "checkbox, button, verify 등 자주 사용하는 인터랙션을 재사용 가능한 함수로 분리합니다."
+    - name: "필드 매핑 분리"
+      text: "UI 텍스트(placeholder, label)를 별도 상수 객체로 분리하여 변경 지점을 단일화합니다."
+    - name: "스토리에서 조합하여 사용"
+      text: "play 함수에서 flow.run()으로 스텝들을 레고 블록처럼 조립하여 테스트 시나리오를 작성합니다."
 ---
 
 ## TL;DR

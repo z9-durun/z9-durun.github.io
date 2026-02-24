@@ -26,23 +26,17 @@ description: >- # used by seo meta and the atom feed
 url: "https://z9-durun.github.io"
 
 github:
-  username: z9-durun # change to your GitHub username
+  username: z9-durun
 
 social:
-  # Change to your full name.
-  # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: chole
-  email: z9.durun@gmail.com # change to your email address
+  email: z9.durun@gmail.com
   links:
-    # The first element serves as the copyright owner's link
-    - https://github.com/z9-durun # change to your GitHub homepage
-    # Uncomment below to add more social links
-    # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://github.com/z9-durun
 
 # Site Verification Settings
 webmaster_verifications:
-  google: G4NiUsd4XQSIU2-ernjNOYcuo9mFcCyJmgb5GL2lcSU
+  google: 5uguIVF1jsOgs44SSpuNkNdGz7iH4bfrari7bRHA0kw
   bing: # fill in your Bing verification code
   alexa: # fill in your Alexa verification code
   yandex: # fill in your Yandex verification code
@@ -150,6 +144,7 @@ baseurl: ""
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
 
 # ------------ The following options are not recommended to be modified ------------------
 
@@ -222,6 +217,3 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
-
-google_analytics:
-  id: "G-D4EVVG7BRT"

@@ -1,9 +1,11 @@
-<!-- JSON-LD Structured Data for SEO -->
+<!-- JSON-LD Structured Data for SEO & GEO -->
+
+{% comment %} ── BlogPosting (posts) ── {% endcomment %}
 {% if page.layout == 'post' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": "TechArticle",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
@@ -11,10 +13,18 @@
   "headline": "{{ page.title | escape }}",
   "description": "{{ page.description | default: page.excerpt | strip_html | truncate: 160 | escape }}",
   "image": "{{ page.image.path | default: page.image | default: site.social_preview_image | absolute_url }}",
+  "inLanguage": "{{ site.lang | default: 'ko-KR' }}",
+  "wordCount": {{ page.content | number_of_words }},
+  {% if page.categories.size > 0 %}"articleSection": "{{ page.categories | join: ', ' }}",{% endif %}
   "author": {
     "@type": "Person",
     "name": "{{ site.social.name }}",
-    "url": "{{ site.social.links[0] }}"
+    "url": "{{ site.social.links[0] }}",
+    "jobTitle": "Frontend Developer",
+    "knowsAbout": ["React", "React Native", "TypeScript", "Frontend Development"],
+    "sameAs": [
+      {% for link in site.social.links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+    ]
   },
   "publisher": {
     "@type": "Organization",
@@ -31,6 +41,52 @@
 </script>
 {% endif %}
 
+{% comment %} ── FAQPage (posts with faq front matter) ── {% endcomment %}
+{% if page.faq and page.faq.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in page.faq %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question | escape }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer | escape }}"
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+
+{% comment %} ── HowTo (posts with howto front matter) ── {% endcomment %}
+{% if page.howto %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "{{ page.howto.name | default: page.title | escape }}",
+  "description": "{{ page.description | escape }}",
+  "totalTime": "{{ page.howto.time | default: 'PT30M' }}",
+  "step": [
+    {% for step in page.howto.steps %}
+    {
+      "@type": "HowToStep",
+      "position": {{ forloop.index }},
+      "name": "{{ step.name | escape }}",
+      "text": "{{ step.text | escape }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+
+{% comment %} ── WebSite + SearchAction (home) ── {% endcomment %}
 {% if page.layout == 'home' or page.url == '/' %}
 <script type="application/ld+json">
 {
@@ -39,15 +95,28 @@
   "name": "{{ site.title }}",
   "description": "{{ site.description | escape }}",
   "url": "{{ site.url }}",
+  "inLanguage": "{{ site.lang | default: 'ko-KR' }}",
   "author": {
     "@type": "Person",
     "name": "{{ site.social.name }}",
-    "url": "{{ site.social.links[0] }}"
+    "url": "{{ site.social.links[0] }}",
+    "sameAs": [
+      {% for link in site.social.links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+    ]
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.url }}/search/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
   }
 }
 </script>
 {% endif %}
 
+{% comment %} ── BreadcrumbList (all pages) ── {% endcomment %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

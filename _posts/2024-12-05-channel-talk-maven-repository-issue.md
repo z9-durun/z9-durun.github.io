@@ -14,13 +14,22 @@ tags:
   - Gradle
   - Mobile Development
   - Technical Issue
+image: /assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_2.webp
+last_modified_at: 2024-12-05
+faq:
+  - question: "Channel Talk v0.9.0 업데이트 후 Android 빌드가 실패하는 이유는?"
+    answer: "v0.9.0부터 Maven Repository가 변경되었습니다. 기존 Maven Central 대신 maven.channel.io를 사용해야 합니다."
+  - question: "Channel Talk 새 Maven Repository 설정 방법은?"
+    answer: "android/build.gradle의 buildscript.repositories와 allprojects.repositories에 maven { url 'https://maven.channel.io/maven2' name 'ChannelTalk' }를 추가합니다."
+  - question: "Gradle 설정 변경 후에도 빌드가 안 되면?"
+    answer: "cd android && ./gradlew clean을 실행하여 빌드 캐시를 정리한 후 다시 시도하세요."
 ---
 
-# 문제 상황
+## 문제 상황
 
 최근 팀 프로젝트에서 흥미로운 이슈를 마주했다. 새로운 팀원이 `package.json`의 디펜던시를 업데이트하는 과정에서 Channel Talk 버전이 올라갔고, 그 이후부터 프로젝트 실행에 문제가 발생했다.
 
-![image.webp](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_2.webp)
+![Channel Talk 업데이트 후 빌드 오류 화면](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_2.webp)
 
 
 ## 원인 파악
@@ -32,7 +41,7 @@ tags:
 - Maven Central 지원이 2025년 8월 1일부터 중단될 예정이다.
 - 새로운 maven repository([maven.channel.io](https://maven.channel.io/))를 사용해야 한다.
 
-![image.webp](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_3.webp)
+![Channel Talk 공식 문서의 Maven Repository 변경 안내](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_3.webp)
 
 ## 해결 과정
 
@@ -64,7 +73,7 @@ allprojects {
 
 ```
 
-![image.webp](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_4.webp)
+![Gradle 설정 수정 후 정상 빌드 결과](/assets/img/posts/2024-12-05/2024-12-05-channel-talk-maven-repository-issue_4.webp)
 
 `devrepo.kakao.com`을 참조하고 있는데, 이건 예전 저장소라 삭제했다.
 

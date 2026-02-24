@@ -14,6 +14,25 @@ tags:
   - DevOps
   - Git Commands
   - Technical Guide
+image: /assets/img/posts/2024-12-05/2024-12-05-git-repository-migration-with-history.webp
+last_modified_at: 2024-12-05
+howto:
+  name: "Git 레포지토리 커밋 히스토리 유지하면서 이전하는 방법"
+  time: "PT30M"
+  steps:
+    - name: "새 레포지토리 클론"
+      text: "이전 대상인 레포지토리 B를 로컬에 클론합니다."
+    - name: "기존 레포지토리를 리모트로 추가"
+      text: "git remote add old-repo [repository-A-url]로 기존 레포를 연결하고 fetch합니다."
+    - name: "히스토리 병합"
+      text: "임시 브랜치를 만들어 기존 히스토리를 가져온 뒤 --allow-unrelated-histories로 병합합니다."
+    - name: "충돌 해결 및 푸시"
+      text: "충돌 파일을 수동으로 해결한 후 커밋하고 원격에 푸시합니다."
+faq:
+  - question: "서로 다른 두 Git 레포지토리의 히스토리를 병합하려면?"
+    answer: "git merge --allow-unrelated-histories 옵션을 사용하면 관련 없는 두 저장소의 히스토리를 병합할 수 있습니다."
+  - question: "레포지토리 이전 시 커밋 히스토리가 사라지나요?"
+    answer: "git remote add와 fetch를 사용하면 기존 레포의 전체 커밋 히스토리를 유지하면서 이전할 수 있습니다."
 ---
 
 ## 배경
@@ -24,7 +43,7 @@ tags:
 
 레포지토리를 이전하면서 마주친 까다로운 점은 다음과 같았다:
 
-![image.webp](/assets/img/posts/2024-12-05/2024-12-05-git-repository-migration-with-history.webp)
+![Git 레포지토리 이전 시 히스토리 충돌 상황](/assets/img/posts/2024-12-05/2024-12-05-git-repository-migration-with-history.webp)
 
 1. 기존 레포지토리 A의 커밋 히스토리를 모두 유지해야 했다.
 2. 새로운 레포지토리 B에는 이미 누군가가 레포지토리 A의 폴더 내용을 복사해서 푸시해둔 상태였다.

@@ -13,6 +13,20 @@ tags:
   - React
   - TypeScript
   - WebView
+image: /assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_1.webp
+last_modified_at: 2024-12-04
+howto:
+  name: "웹뷰 프로젝트에 GA4와 GTM 적용하는 방법"
+  time: "PT40M"
+  steps:
+    - name: "Google Analytics 속성 및 데이터 스트림 설정"
+      text: "Google Analytics에서 새 속성을 만들고 웹 데이터 스트림을 생성하여 측정 ID를 발급받습니다."
+    - name: "환경 변수 및 TypeScript 설정"
+      text: "GA4 추적 ID와 GTM ID를 환경 변수로 설정하고 TypeScript 타입을 정의합니다."
+    - name: "GA4와 GTM 스크립트 추가"
+      text: "index.html에 gtag.js와 GTM 스크립트를 추가하고, noscript 태그도 설정합니다."
+    - name: "React 앱에서 초기화 및 이벤트 트래킹 구현"
+      text: "main.tsx에서 GA4를 초기화하고, GTM dataLayer를 활용한 커스텀 이벤트 유틸리티를 만듭니다."
 ---
 
 ## 배경
