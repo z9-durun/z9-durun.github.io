@@ -92,7 +92,7 @@ jobs:
       - name: Submit URLs to IndexNow
         run: |
           # Fetch sitemap and extract URLs
-          URLS=$(curl -s "https://ooyuo.github.io/sitemap.xml" | grep -oP '(?<=<loc>)[^<]+' | head -20)
+          URLS=$(curl -s "https://z9-durun.github.io/sitemap.xml" | grep -oP '(?<=<loc>)[^<]+' | head -20)
 
           # Convert to JSON array
           URL_JSON=$(echo "$URLS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
@@ -101,9 +101,9 @@ jobs:
           curl -X POST "https://api.indexnow.org/IndexNow" \
             -H "Content-Type: application/json; charset=utf-8" \
             -d "{
-              \"host\": \"ooyuo.github.io\",
+              \"host\": \"z9-durun.github.io\",
               \"key\": \"fadc0d58c30a4a3ca2cc3625b7761549\",
-              \"keyLocation\": \"https://ooyuo.github.io/fadc0d58c30a4a3ca2cc3625b7761549.txt\",
+              \"keyLocation\": \"https://z9-durun.github.io/fadc0d58c30a4a3ca2cc3625b7761549.txt\",
               \"urlList\": $URL_JSON
             }"
 
