@@ -167,7 +167,7 @@ history.listen((response) => {
 특히 중요했던 것은 상담 신청 버튼 클릭 이벤트의 추적이었다. GTM에서 태그와 트리거를 만들었다.
 
 - 태그
-![태그](/assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_8.webp)
+![태그](/assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_8.png)
 
 - 트리거
 ![트리거](/assets/img/posts/2024-12-04/ga4-gtm-integration-for-webview-project_9.webp)
