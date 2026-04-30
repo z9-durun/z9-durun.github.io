@@ -82,8 +82,8 @@ React 프로젝트에 GA4를 적용하기 위해 다음과 같은 도구들을 �
 먼저 개발 환경과 프로덕션 환경에서 각각 다른 GA4 추적 ID를 사용할 수 있도록 환경 변수를 설정했다:
 
 ```
-VITE_GA_TRACKING_ID=G-98CRVRP3CW
-VITE_GTM_ID=GTM-MM88PWSZ
+VITE_GA_TRACKING_ID=
+VITE_GTM_ID=
 ```
 
 ### 3. TypeScript 환경 설정
