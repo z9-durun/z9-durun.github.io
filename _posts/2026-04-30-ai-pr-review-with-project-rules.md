@@ -44,11 +44,7 @@ faq:
     answer: "안 됩니다. AI 리뷰는 놓친 걸 줄여주지 다 잡아주지는 못합니다. 도메인 결정이나 라이브러리 선택, 비즈니스 룰의 적절성 같은 판단은 여전히 사람의 영역입니다. AI 리뷰는 바닥선이지 천장이 아닙니다."
 ---
 
-<div style="text-align: center;" markdown="1">
-
-![PR단위 AI리뷰](/assets/img/posts/2026-04-30/pr-unit-ai-review.gif)
-
-</div>
+![PR단위 AI리뷰](/assets/img/posts/2026-04-30/pr-unit-ai-review.gif){: style="width:100%;" }
 
 
 ## TL;DR
