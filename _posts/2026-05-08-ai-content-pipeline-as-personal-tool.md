@@ -1,4 +1,52 @@
-# AI 콘텐츠 파이프라인을 1인 도구로 다시 짜면서 바뀐 결정 4개
+---
+title: "AI 콘텐츠 파이프라인을 1인 도구로 다시 짜면서 바뀐 결정 4개"
+description: "매일 뉴스 카드를 Threads에 자동 발행하는 시스템을 SaaS 기본값으로 짓다가 1인 도구로 다시 짠 과정. 운영 UI 전체 차단, 사람이 승인한 카드만 발행, 부분 실패 허용, Cron이 호출하는 API만 인증 — 사용자 한 명·인터페이스는 텔레그램이라는 전제에서 따라온 결정 4개를 정리한 글."
+date: 2026-05-08
+categories:
+  - Development
+  - AI
+tags:
+  - Next.js
+  - Vercel Cron
+  - Telegram Bot
+  - AI
+  - Threads
+  - Personal Tool
+  - Automation
+  - Workflow Automation
+  - Tool Use
+  - Anthropic
+last_modified_at: 2026-05-08
+howto:
+  name: "AI 콘텐츠 파이프라인을 1인 도구로 짓기"
+  time: "PT2H"
+  steps:
+    - name: "사용자와 인터페이스 정의"
+      text: "사용자가 한 명임을 인정하고 검수 인터페이스를 화면이 아니라 메시징(텔레그램)으로 잡습니다. 이 한 줄이 나머지 결정의 기준이 됩니다."
+    - name: "운영 환경 UI 라우트 전체 차단"
+      text: "Next.js 미들웨어(proxy.ts)에서 NODE_ENV === 'production'일 때 모든 UI 라우트에 404를 반환합니다. matcher에서 /api를 제외해 Cron과 텔레그램 웹훅은 영향을 받지 않게 합니다."
+    - name: "상태 머신 강제"
+      text: "시트의 상태값을 draft → reviewed → publishing → published 순서로 단방향 전이시키고, 발행 Cron은 reviewed 상태인 카드만 가져가게 합니다. AI 출력이 곧장 published로 가는 경로는 만들지 않습니다."
+    - name: "텔레그램 인라인 버튼으로 검수 UI 대체"
+      text: "수집된 카드를 텔레그램으로 보내고 메시지에 '승인 / 즉시발행 / 건너뛰기' 인라인 버튼을 붙입니다. 발행 권한이 메시징 안에만 남게 됩니다."
+    - name: "stale 만료 정책 도입"
+      text: "REVIEWED_STALE_MS(예: 6시간)를 정의하고, 발행 Cron이 발행 작업보다 먼저 expireStaleReviewedAction()을 실행해 시간 지난 reviewed 카드를 만료시킵니다."
+    - name: "부분 실패 허용"
+      text: "AI Tool Use로 받은 카드 배치를 filterValidCards로 검증해 분량 등 룰을 어긴 카드만 빼고 나머지는 발행 후보로 통과시킵니다. 응답 전체를 throw 하지 않습니다."
+    - name: "Cron API 인증만 살리기"
+      text: "verifyCronAuth에서 Authorization: Bearer ${CRON_SECRET} 헤더를 검사합니다. Vercel Cron이 자동으로 헤더를 붙여 주고, 텔레그램 웹훅은 별도 시크릿 토큰으로 보호합니다. 그 외 사용자 인증은 만들지 않습니다."
+faq:
+  - question: "어드민 UI 없이 텔레그램으로만 검수해도 충분한가요?"
+    answer: "1인 도구라면 충분합니다. 검수자가 한 명이고 검수 시간이 카드당 10초 안쪽이라면, 폰에서 메시지를 읽고 인라인 버튼을 누르는 게 노트북을 켜고 어드민 페이지에 로그인하는 것보다 짧습니다. 다만 카드를 옆에 두고 비교하거나 한 번에 100개씩 일괄 작업해야 한다면 어드민 UI가 맞습니다."
+  - question: "운영 환경에서 UI 라우트를 통째로 닫아도 괜찮나요?"
+    answer: "외부에서 접근할 이유가 없는 경우에 한해 괜찮습니다. UI 라우트가 운영에 없으면 인증 흐름, CSP, 세션 관리 같은 부가 코드와 그에 따라오는 공격면이 통째로 사라집니다. Next.js 미들웨어에서 NODE_ENV === 'production'일 때 NextResponse 404를 반환하면 한 줄로 처리됩니다."
+  - question: "AI가 만든 카드를 곧장 발행하지 않는 이유는?"
+    answer: "사람의 손을 거치지 않은 카드가 인터넷에 나갈 경로를 시스템에서 없애기 위해서입니다. AI가 톤을 잘못 잡거나 시트가 꼬여도, 텔레그램에서 승인 버튼을 누르지 않은 카드는 reviewed 상태가 되지 못하고 Cron 발행기는 reviewed만 봅니다. 발행 권한이 메시징 안에 갇히게 됩니다."
+  - question: "부분 실패 시 자동 재생성을 넣지 않은 이유는?"
+    answer: "1인 도구에서는 자동 재생성의 비용 대비 효용이 낮다고 봤습니다. Cron이 일정 주기로 새 배치를 가져오니 재생성이 필요하면 그냥 건너뛰고 다음 배치를 기다리면 됩니다. 검수자가 텔레그램에서 한 번 더 손을 대는 비용이 자동 보정 로직을 만들고 유지하는 비용보다 쌉니다."
+  - question: "이 설계를 SaaS(다인 운영)로 확장할 수 있나요?"
+    answer: "가능은 하지만 운영 UI 전체를 새로 만들어야 합니다. 이 설계는 '사용자는 한 명, 인터페이스는 텔레그램'이라는 전제 위에 4개 결정이 일관되게 따라온 구조이고, 그 전제가 바뀌면 결정도 다시 내려야 합니다. SaaS로 진화시킬 가능성이 있다면 처음부터 어드민 UI를 두고 가는 편이 재설계 비용 측면에서 더 쌉니다."
+---
 
 ![텔레그램 검수 메시지 — 이 시스템의 진짜 UI](/assets/img/posts/2026-05-08/telegram-approval-hero_1.png)
 
